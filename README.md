@@ -2,6 +2,8 @@
 
 An evidence-led interactive explainer of what public institutions and audited logistics evidence can—and cannot—tell us about a hypothetical Russian attack on NATO territory.
 
+**[Open the interactive live website](https://article-five-lab.lindgreendavid.chatgpt.site)**
+
 ## Research question
 
 What political, legal and logistical processes would public evidence support expecting after an armed attack on NATO territory, without inventing operational plans or predicting a war outcome?
