@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+title: "Article Five Lab"
+message: "If you use this explainer, cite the software and consult the linked primary sources."
+type: software
+version: 1.0.0
+date-released: 2026-08-16
+authors:
+  - family-names: Lindgreen
+    given-names: David
+repository-code: "https://github.com/lindgreendavid/article-five-lab"
+license: MIT
+keywords:
+  - NATO
+  - Article 5
+  - military mobility
+  - geopolitics
+  - public evidence
+abstract: "An interactive, evidence-led explainer of NATO collective-defence decision-making and European military mobility."

@@ -1,0 +1,86 @@
+{
+  "project": "Article Five Lab",
+  "version": "1.0.0",
+  "research_cutoff": "2026-08-16",
+  "scope": "Public political, legal and military-mobility evidence; no operational prediction",
+  "claims": [
+    {
+      "id": "A5-OBLIGATION",
+      "claim": "Article 5 obliges each Ally to assist but leaves the form of action to that Ally.",
+      "status": "supported",
+      "evidence_level": "primary legal text",
+      "source": "https://www.nato.int/en/about-us/official-texts-and-resources/official-texts/1949/04/04/the-north-atlantic-treaty"
+    },
+    {
+      "id": "A5-CONDITIONS",
+      "claim": "NATO's current public guidance identifies an armed attack and the attacked Ally's request or consent as conditions for Article 5 collective action.",
+      "status": "supported",
+      "evidence_level": "official institutional guidance",
+      "source": "https://www.nato.int/en/what-we-do/introduction-to-nato/collective-defence-and-article-5"
+    },
+    {
+      "id": "NAC-CONSENSUS",
+      "claim": "NATO decisions are made by consensus rather than voting.",
+      "status": "supported",
+      "evidence_level": "official institutional guidance",
+      "source": "https://www.nato.int/en/what-we-do/introduction-to-nato/consensus-decision-making-at-nato"
+    },
+    {
+      "id": "EU-MOBILITY-GAP",
+      "claim": "The EU's objective of swift and seamless military movement at short notice and large scale had not yet been achieved in the 2025 ECA audit.",
+      "status": "supported",
+      "evidence_level": "independent public audit",
+      "source": "https://www.eca.europa.eu/en/publications/sr-2025-04"
+    },
+    {
+      "id": "EU-95-PROJECTS",
+      "claim": "The dedicated EU envelope funded 95 dual-use mobility projects in 21 member states.",
+      "status": "supported",
+      "evidence_level": "audit and programme reporting",
+      "source": "https://www.eca.europa.eu/en/publications/sr-2025-04"
+    },
+    {
+      "id": "DE-HUB-SCALE",
+      "claim": "Germany publicly plans for transit and support of up to 800,000 Allied troops and 200,000 vehicles within six months.",
+      "status": "supported",
+      "evidence_level": "official public planning overview",
+      "source": "https://www.bundeswehr.de/en/organization/bundeswehr-joint-force-command/missions/operational-plan-for-germany"
+    },
+    {
+      "id": "ACO-ROLE",
+      "claim": "Allied Command Operations at SHAPE is responsible for planning and executing NATO military operations under NATO's political authority.",
+      "status": "supported",
+      "evidence_level": "official institutional guidance",
+      "source": "https://www.nato.int/en/about-us/organization/nato-structure/allied-command-operations-aco"
+    },
+    {
+      "id": "DE-CIVMIL-EXERCISE",
+      "claim": "Red Storm Bravo rehearsed civil-military cooperation in Hamburg in a fictional reinforcement scenario in September 2025.",
+      "status": "supported",
+      "evidence_level": "official public exercise overview",
+      "source": "https://www.bundeswehr.de/de/organisation/operatives-fuehrungskommando-der-bundeswehr/landeskommando/hamburg/red-storm-bravo"
+    },
+    {
+      "id": "BALTIC-GAUGE",
+      "claim": "Rail Baltica is intended to connect the Baltic states to the European standard-gauge network and reduce present technical and logistical interoperability barriers.",
+      "status": "supported",
+      "evidence_level": "official implementing-body overview",
+      "source": "https://www.railbaltica.org/about-rail-baltica/"
+    },
+    {
+      "id": "LT-SHELTERS",
+      "claim": "Lithuania reported 6,513 shelters with capacity for about 1.6 million people, roughly 56% of the population, in March 2026.",
+      "status": "supported_with_boundary",
+      "boundary": "Reported nominal capacity does not establish condition, accessibility or wartime performance.",
+      "evidence_level": "official ministry reporting",
+      "source": "https://vrm.lrv.lt/en/news/lithuania-seeks-to-learn-from-finland-focus-on-shelter-network-and-crisis-readiness-yrW2/"
+    },
+    {
+      "id": "RESPONSE-TIME",
+      "claim": "Public sources provide a reliable exact countdown from attack to a complete NATO response.",
+      "status": "not_supported",
+      "evidence_level": "scope boundary",
+      "source": "https://www.eca.europa.eu/en/publications/sr-2025-04"
+    }
+  ]
+}
