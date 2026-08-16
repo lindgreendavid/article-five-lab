@@ -76,6 +76,45 @@
       "source": "https://vrm.lrv.lt/en/news/lithuania-seeks-to-learn-from-finland-focus-on-shelter-network-and-crisis-readiness-yrW2/"
     },
     {
+      "id": "NFM-READINESS",
+      "claim": "The NATO Force Model organises national forces in three readiness tiers and includes the Allied Reaction Force.",
+      "status": "supported_with_boundary",
+      "boundary": "Readiness tiers do not identify the force, destination or actual deployment time in a hypothetical crisis.",
+      "evidence_level": "official institutional guidance",
+      "source": "https://www.nato.int/en/what-we-do/deterrence-and-defence/nato-force-model"
+    },
+    {
+      "id": "IAMD-FUNCTIONS",
+      "claim": "NATO's public IAMD policy describes continuous surveillance, command and control, active defence, passive defence and warning functions.",
+      "status": "supported_with_boundary",
+      "boundary": "The public policy does not provide operational sensor coverage, engagement geometry or interception probability.",
+      "evidence_level": "official policy",
+      "source": "https://www.nato.int/cps/en/natohq/official_texts_233084.htm"
+    },
+    {
+      "id": "CYBER-CASE-BY-CASE",
+      "claim": "Significant malicious cyber activity may in certain circumstances be considered an armed attack, case by case.",
+      "status": "supported_with_boundary",
+      "boundary": "NATO publishes no numeric Article 5 cyber threshold.",
+      "evidence_level": "official policy overview",
+      "source": "https://www.nato.int/en/what-we-do/deterrence-and-defence/cyber-defence"
+    },
+    {
+      "id": "RESILIENCE-BASELINES",
+      "claim": "NATO's resilience baseline framework links continuity of government, essential services and civil support to the military.",
+      "status": "supported",
+      "evidence_level": "official institutional guidance",
+      "source": "https://www.nato.int/en/what-we-do/deterrence-and-defence/resilience-civil-preparedness-and-article-3"
+    },
+    {
+      "id": "HYBRID-SUPPORT",
+      "claim": "The targeted country leads a hybrid response; NATO may provide tailored support on request, and hybrid actions could lead to an Article 5 decision.",
+      "status": "supported_with_boundary",
+      "boundary": "Could lead to a decision is not an automatic trigger.",
+      "evidence_level": "official institutional guidance",
+      "source": "https://www.nato.int/en/what-we-do/deterrence-and-defence/countering-hybrid-threats"
+    },
+    {
       "id": "RESPONSE-TIME",
       "claim": "Public sources provide a reliable exact countdown from attack to a complete NATO response.",
       "status": "not_supported",

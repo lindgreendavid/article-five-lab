@@ -23,6 +23,7 @@ Article 5 creates an obligation to assist, but it does not prescribe an automati
 - a five-stage Article 5 process map;
 - an interactive European mobility bottleneck model;
 - an accessible Europe evidence map with decision, mobility and civil-resilience layers;
+- a five-phase animated response theatre spanning conventional, air/missile, cyber and hybrid incidents;
 - a claim-audit tool for common misconceptions;
 - an explicit evidence boundary and methods section;
 - a primary-source register checked on 16 August 2026;
@@ -33,6 +34,8 @@ Article 5 creates an obligation to assist, but it does not prescribe an automati
 This is an independent educational research product. It contains no classified material, operational routes, targeting information, tactical recommendations, probability of escalation, weapons-effect modelling or prediction of victory. It is not affiliated with NATO, the European Union or any government.
 
 The supplied research brief and Google Drive source collection were used as lead registers. Displayed claims were independently checked against the linked official primary sources; the map is institutional context, not an operational route plan.
+
+The response theatre visualizes public defensive functions and institutional dependencies. Its incident pulses and connecting lines are conceptual—not attack vectors, reinforcement routes, targets, probabilities or measured response times.
 
 ## Local verification
 

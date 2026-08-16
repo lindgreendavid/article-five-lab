@@ -21,9 +21,10 @@ test("server-renders the complete Article Five Lab", async () => {
 });
 
 test("interactive surfaces expose accessible controls and caveats", async () => {
-  const [scenario, map] = await Promise.all([
+  const [scenario, map, theatre] = await Promise.all([
     readFile(new URL("../app/ScenarioLab.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/EuropeEvidenceMap.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/ResponseTheatre.tsx", import.meta.url), "utf8"),
   ]);
   assert.match(scenario, /aria-pressed/);
   assert.match(scenario, /aria-expanded/);
@@ -33,6 +34,10 @@ test("interactive surfaces expose accessible controls and caveats", async () => 
   assert.match(map, /Geographic context only · no operational routes/);
   assert.match(map, /aria-pressed/);
   assert.match(map, /Decision[\s\S]*Mobility[\s\S]*Resilience/);
+  for (const label of ["Overt conventional attack", "Air or missile attack", "Significant cyberattack", "Covert sabotage campaign"]) assert.match(theatre, new RegExp(label));
+  assert.match(theatre, /Play the five-phase sequence/);
+  assert.match(theatre, /Neither is an attack vector, reinforcement route, target, probability or measured response time/);
+  assert.match(theatre, /prefers-reduced-motion/);
 });
 
 test("claims preserve key legal and evidentiary boundaries", async () => {

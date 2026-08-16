@@ -1,5 +1,6 @@
 import { ClaimLab, MobilityLab, ScenarioLab } from "./ScenarioLab";
 import EuropeEvidenceMap from "./EuropeEvidenceMap";
+import ResponseTheatre from "./ResponseTheatre";
 
 const sources = [
   { n: 1, title: "The North Atlantic Treaty", org: "NATO · official text · 1949", href: "https://www.nato.int/en/about-us/official-texts-and-resources/official-texts/1949/04/04/the-north-atlantic-treaty" },
@@ -14,6 +15,11 @@ const sources = [
   { n: 10, title: "Red Storm Bravo: Bundeswehr exercise 2025", org: "Bundeswehr · public exercise overview · 24 Jul 2025", href: "https://www.bundeswehr.de/de/organisation/operatives-fuehrungskommando-der-bundeswehr/landeskommando/hamburg/red-storm-bravo" },
   { n: 11, title: "About Rail Baltica", org: "RB Rail AS · official implementing-body overview", href: "https://www.railbaltica.org/about-rail-baltica/" },
   { n: 12, title: "Lithuania's shelter network and crisis readiness", org: "Lithuanian Ministry of the Interior · updated 17 Apr 2026", href: "https://vrm.lrv.lt/en/news/lithuania-seeks-to-learn-from-finland-focus-on-shelter-network-and-crisis-readiness-yrW2/" },
+  { n: 13, title: "NATO Force Model", org: "NATO · readiness framework · updated 2 Apr 2025", href: "https://www.nato.int/en/what-we-do/deterrence-and-defence/nato-force-model" },
+  { n: 14, title: "NATO Integrated Air and Missile Defence Policy", org: "NATO · official policy · 13 Feb 2025", href: "https://www.nato.int/cps/en/natohq/official_texts_233084.htm" },
+  { n: 15, title: "Cyber defence", org: "NATO · policy and capability overview", href: "https://www.nato.int/en/what-we-do/deterrence-and-defence/cyber-defence" },
+  { n: 16, title: "Resilience, civil preparedness and Article 3", org: "NATO · baseline resilience requirements", href: "https://www.nato.int/en/what-we-do/deterrence-and-defence/resilience-civil-preparedness-and-article-3" },
+  { n: 17, title: "Countering hybrid threats", org: "NATO · updated 29 Jan 2026", href: "https://www.nato.int/en/what-we-do/deterrence-and-defence/countering-hybrid-threats" },
 ];
 
 export default function Home() {
@@ -21,7 +27,7 @@ export default function Home() {
     <main>
       <header className="site-header">
         <a className="brand" href="#top"><span>A5</span><strong>Article Five Lab</strong></a>
-        <nav aria-label="Primary navigation"><a href="#scenario">Scenario</a><a href="#law">Decision</a><a href="#mobility">Mobility</a><a href="#map">Map</a><a href="#claims">Claim lab</a><a href="#sources">Sources</a></nav>
+        <nav aria-label="Primary navigation"><a href="#scenario">Scenario</a><a href="#law">Decision</a><a href="#mobility">Mobility</a><a href="#response-theatre">Response</a><a href="#map">Map</a><a href="#sources">Sources</a></nav>
         <p>Evidence brief · 16 Aug 2026</p>
       </header>
 
@@ -48,10 +54,12 @@ export default function Home() {
 
       <MobilityLab />
 
+      <ResponseTheatre />
+
       <EuropeEvidenceMap />
 
       <section className="evidence-section">
-        <div className="section-label"><span>04</span><p>What public evidence establishes</p></div>
+        <div className="section-label"><span>05</span><p>What public evidence establishes</p></div>
         <div className="evidence-ledger"><article><span>Observed</span><strong>95 projects</strong><p>EU funding covered dual-use transport projects in 21 member states. The full dedicated budget was allocated.</p></article><article><span>Observed</span><strong>11 completed</strong><p>CINEA reported the first 11 projects completed across eight member states by 19 November 2025.</p></article><article><span>Audited</span><strong>Goal not achieved</strong><p>The ECA concluded swift and seamless movement at short notice and large scale had not yet been achieved.</p></article><article><span>Proposed</span><strong>“Military Schengen”</strong><p>The Commission proposed a new mobility regulation in November 2025; its June 2026 tracker still lists the legislative part as proposed.</p></article><article><span>Public plan scale</span><strong>800k + 200k</strong><p>Germany says up to 800,000 Allied troops and 200,000 vehicles may need transit and host-nation support within six months.</p></article><article className="not-measured"><span>Not measured</span><strong>No public victory clock</strong><p>These figures do not establish a classified route, exact wartime transit time, battle outcome or probability of escalation.</p></article></div>
       </section>
 

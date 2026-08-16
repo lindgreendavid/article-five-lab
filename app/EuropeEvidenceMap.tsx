@@ -116,7 +116,7 @@ export default function EuropeEvidenceMap() {
 
   return (
     <section className="map-section" id="map">
-      <div className="section-label light"><span>03</span><p>Public systems geography</p></div>
+      <div className="section-label light"><span>04</span><p>Public systems geography</p></div>
       <div className="map-heading">
         <div><p className="eyebrow">Interactive evidence map</p><h2>See the system.<br /><em>Do not mistake it for a route.</em></h2></div>
         <p>This map locates public institutions and illustrative evidence. It deliberately excludes precise infrastructure, targets, force positions and operational paths.</p>
