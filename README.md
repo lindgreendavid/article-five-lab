@@ -35,7 +35,7 @@ This is an independent educational research product. It contains no classified m
 
 The supplied research brief and Google Drive source collection were used as lead registers. Displayed claims were independently checked against the linked official primary sources; the map is institutional context, not an operational route plan.
 
-The response theatre visualizes public defensive functions and institutional dependencies. Its incident pulses and connecting lines are conceptual—not attack vectors, reinforcement routes, targets, probabilities or measured response times.
+The response theatre visualizes public defensive functions using four distinct visual grammars: staged assistance, surveillance and protection, distributed cyber coordination, and pattern detection under uncertainty. Its rings, scans, packets and connecting lines are conceptual—not attack vectors, reinforcement routes, targets, probabilities or measured response times.
 
 ## Local verification
 

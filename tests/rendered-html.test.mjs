@@ -36,7 +36,10 @@ test("interactive surfaces expose accessible controls and caveats", async () => 
   assert.match(map, /Decision[\s\S]*Mobility[\s\S]*Resilience/);
   for (const label of ["Overt conventional attack", "Air or missile attack", "Significant cyberattack", "Covert sabotage campaign"]) assert.match(theatre, new RegExp(label));
   assert.match(theatre, /Play the five-phase sequence/);
-  assert.match(theatre, /Neither is an attack vector, reinforcement route, target, probability or measured response time/);
+  for (const grammar of ["Staged assistance dependencies", "Surveillance and defensive layers", "Distributed information coordination", "Pattern detection under uncertainty"]) assert.match(theatre, new RegExp(grammar));
+  assert.match(theatre, /None represents an attack vector, reinforcement route, target, probability or measured response time/);
+  assert.doesNotMatch(theatre, /Map pitch|rotateX/);
+  assert.match(theatre, /labelX: -66[\s\S]*labelY: 24/);
   assert.match(theatre, /prefers-reduced-motion/);
 });
 

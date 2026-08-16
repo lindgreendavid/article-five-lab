@@ -66,11 +66,18 @@ const regions = [
 ];
 
 const institutions = [
-  { label: "NAC", sub: "political", lon: 4.35, lat: 50.85, phase: 2 },
-  { label: "SHAPE", sub: "command", lon: 3.95, lat: 50.45, phase: 2 },
-  { label: "AIRCOM", sub: "air defence", lon: 7.60, lat: 49.44, phase: 1, only: "air" as IncidentId },
-  { label: "HOST", sub: "support", lon: 10.45, lat: 51.10, phase: 3 },
+  { label: "NAC", sub: "political", lon: 4.35, lat: 50.85, phase: 2, labelX: -66, labelY: -25 },
+  { label: "SHAPE", sub: "command", lon: 3.95, lat: 50.45, phase: 2, labelX: 13, labelY: 24 },
+  { label: "AIRCOM", sub: "air defence", lon: 7.60, lat: 49.44, phase: 1, labelX: 12, labelY: -17, only: "air" as IncidentId },
+  { label: "HOST", sub: "support", lon: 10.45, lat: 51.10, phase: 3, labelX: 12, labelY: -15 },
 ];
+
+const visualGrammar: Record<IncidentId, string> = {
+  conventional: "Staged assistance dependencies",
+  air: "Surveillance and defensive layers",
+  cyber: "Distributed information coordination",
+  hybrid: "Pattern detection under uncertainty",
+};
 
 const countries = feature(
   atlas as never,
@@ -89,7 +96,6 @@ export default function ResponseTheatre() {
   const [regionId, setRegionId] = useState<RegionId>("baltic");
   const [phase, setPhase] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [pitch, setPitch] = useState(22);
   const [intensity, setIntensity] = useState(2);
   const scenario = scenarios.find((item) => item.id === incidentId) ?? scenarios[0];
   const region = regions.find((item) => item.id === regionId) ?? regions[0];
@@ -141,38 +147,91 @@ export default function ResponseTheatre() {
       context.strokeStyle = "rgba(183,224,231,.28)"; context.lineWidth = 1; context.stroke();
 
       const target = project(region.lon, region.lat, width, height);
-      const speed = time / (incidentId === "cyber" ? 520 : incidentId === "hybrid" ? 900 : 700);
+      const speed = time / 700;
       const maxRadius = 34 + intensity * 13;
-      for (let index = 0; index < intensity + 1; index++) {
-        const progress = (speed * .18 + index / (intensity + 1)) % 1;
-        context.beginPath(); context.arc(target.x, target.y, 10 + progress * maxRadius, 0, Math.PI * 2);
-        context.strokeStyle = `${scenario.color}${Math.max(12, Math.round((1 - progress) * 125)).toString(16).padStart(2, "0")}`;
-        context.lineWidth = incidentId === "hybrid" ? 1.5 : 2.5; context.stroke();
+      const drawDependency = (start: { x: number; y: number }, index: number, dashed = true) => {
+        context.beginPath(); context.moveTo(start.x, start.y);
+        context.quadraticCurveTo((start.x + target.x) / 2, Math.min(start.y, target.y) - 28 - index * 10, target.x, target.y);
+        context.strokeStyle = "rgba(129,201,255,.68)"; context.lineWidth = 1.5;
+        if (dashed) { context.setLineDash([8, 10]); context.lineDashOffset = -frame; }
+        context.stroke(); context.setLineDash([]);
+      };
+
+      if (incidentId === "conventional") {
+        for (let index = 0; index < intensity + 1; index++) {
+          const progress = (speed * .16 + index / (intensity + 1)) % 1;
+          context.beginPath(); context.arc(target.x, target.y, 10 + progress * maxRadius, 0, Math.PI * 2);
+          context.strokeStyle = `${scenario.color}${Math.max(12, Math.round((1 - progress) * 125)).toString(16).padStart(2, "0")}`;
+          context.lineWidth = 2.5; context.stroke();
+        }
+        visibleInstitutions.forEach((node, index) => {
+          if (phase >= node.phase) drawDependency(project(node.lon, node.lat, width, height), index);
+        });
+      }
+
+      if (incidentId === "air") {
+        const sweep = (speed * .34) % (Math.PI * 2);
+        const radius = maxRadius * 1.5;
+        const radar = context.createRadialGradient(target.x, target.y, 0, target.x, target.y, radius);
+        radar.addColorStop(0, "rgba(255,159,104,.24)"); radar.addColorStop(1, "rgba(255,159,104,0)");
+        context.fillStyle = radar; context.beginPath(); context.moveTo(target.x, target.y); context.arc(target.x, target.y, radius, sweep - .34, sweep); context.closePath(); context.fill();
+        for (let layer = 1; layer <= intensity + 1; layer++) {
+          context.beginPath(); context.arc(target.x, target.y, 16 + layer * 16, Math.PI * 1.08, Math.PI * 1.92);
+          context.strokeStyle = `rgba(255,159,104,${.28 + layer * .08})`; context.lineWidth = 2; context.stroke();
+        }
+        const aircom = visibleInstitutions.find((node) => node.label === "AIRCOM");
+        if (aircom && phase >= aircom.phase) drawDependency(project(aircom.lon, aircom.lat, width, height), 0, false);
       }
 
       if (incidentId === "cyber") {
-        context.strokeStyle = `${scenario.color}70`; context.setLineDash([3, 9]);
-        for (let index = 0; index < 7; index++) { const angle = index * Math.PI * 2 / 7 + speed * .08; context.beginPath(); context.moveTo(target.x, target.y); context.lineTo(target.x + Math.cos(angle) * maxRadius * 1.45, target.y + Math.sin(angle) * maxRadius * 1.45); context.stroke(); }
-        context.setLineDash([]);
+        const network = [...visibleInstitutions.map((node) => project(node.lon, node.lat, width, height)), target];
+        network.forEach((start, index) => {
+          const end = network[(index + 1) % network.length];
+          context.beginPath(); context.moveTo(start.x, start.y); context.lineTo(end.x, end.y);
+          context.strokeStyle = "rgba(199,109,255,.38)"; context.setLineDash([3, 8]); context.lineDashOffset = frame; context.stroke(); context.setLineDash([]);
+          if (index <= phase) {
+            const progress = (speed * .22 + index * .19) % 1;
+            const x = start.x + (end.x - start.x) * progress; const y = start.y + (end.y - start.y) * progress;
+            context.fillStyle = scenario.color; context.fillRect(x - 3, y - 3, 6, 6);
+          }
+        });
+        for (let ringIndex = 0; ringIndex < intensity; ringIndex++) {
+          const progress = (speed * .26 + ringIndex / intensity) % 1;
+          context.beginPath(); context.rect(target.x - 10 - progress * maxRadius, target.y - 10 - progress * maxRadius, 20 + progress * maxRadius * 2, 20 + progress * maxRadius * 2);
+          context.strokeStyle = `rgba(199,109,255,${(1 - progress) * .55})`; context.stroke();
+        }
       }
 
-      visibleInstitutions.forEach((node, index) => {
+      if (incidentId === "hybrid") {
+        const offsets = [[-48,-21],[34,-38],[-21,42],[54,23],[-63,34],[15,-58],[69,-14],[3,65]];
+        offsets.slice(0, 3 + intensity + phase).forEach(([dx, dy], index) => {
+          const flicker = .45 + Math.sin(speed * 2.1 + index * 2.3) * .22;
+          context.beginPath(); context.arc(target.x + dx, target.y + dy, 3 + (index % 3), 0, Math.PI * 2);
+          context.fillStyle = `rgba(255,211,106,${flicker})`; context.fill();
+          if (phase >= 2) {
+            context.beginPath(); context.moveTo(target.x + dx, target.y + dy); context.lineTo(target.x, target.y);
+            context.strokeStyle = `rgba(255,211,106,${phase === 2 ? .18 : .34})`; context.setLineDash([2, 8]); context.stroke(); context.setLineDash([]);
+          }
+        });
+        if (phase >= 3) visibleInstitutions.forEach((node, index) => { if (phase >= node.phase) drawDependency(project(node.lon, node.lat, width, height), index); });
+      }
+
+      visibleInstitutions.forEach((node) => {
         const active = phase >= node.phase;
         const start = project(node.lon, node.lat, width, height);
-        if (active) {
-          context.beginPath(); context.moveTo(start.x, start.y);
-          const bend = 28 + index * 9;
-          context.quadraticCurveTo((start.x + target.x) / 2, Math.min(start.y, target.y) - bend, target.x, target.y);
-          context.strokeStyle = node.only === "air" ? "rgba(255,159,104,.78)" : "rgba(129,201,255,.7)";
-          context.lineWidth = 1.5; context.setLineDash([8, 10]); context.lineDashOffset = -frame; context.stroke(); context.setLineDash([]);
-        }
         context.beginPath(); context.arc(start.x, start.y, active ? 6 : 4, 0, Math.PI * 2); context.fillStyle = active ? "#b9e8ff" : "#496a7a"; context.fill();
-        context.fillStyle = active ? "#e8f7ff" : "#6f8a96"; context.font = "700 9px monospace"; context.fillText(node.label, start.x + 9, start.y - 5);
+        const labelX = start.x + node.labelX; const labelY = start.y + node.labelY;
+        context.strokeStyle = active ? "rgba(185,232,255,.5)" : "rgba(73,106,122,.45)"; context.lineWidth = 1;
+        context.beginPath(); context.moveTo(start.x, start.y); context.lineTo(labelX + (node.labelX < 0 ? 54 : -4), labelY + 4); context.stroke();
+        context.fillStyle = "rgba(2,13,24,.86)"; context.fillRect(labelX - 5, labelY - 11, 58, 25);
+        context.strokeStyle = active ? "rgba(185,232,255,.45)" : "rgba(73,106,122,.35)"; context.strokeRect(labelX - 5, labelY - 11, 58, 25);
+        context.fillStyle = active ? "#e8f7ff" : "#6f8a96"; context.font = "700 9px monospace"; context.fillText(node.label, labelX, labelY);
+        context.fillStyle = active ? "#8eabb8" : "#526b76"; context.font = "7px monospace"; context.fillText(node.sub.toUpperCase(), labelX, labelY + 9);
       });
 
       context.beginPath(); context.arc(target.x, target.y, 7 + Math.sin(speed) * 2, 0, Math.PI * 2); context.fillStyle = scenario.color; context.fill();
       context.fillStyle = "#ffffff"; context.font = "700 10px monospace"; context.fillText(region.label.toUpperCase(), target.x + 12, target.y + 4);
-      context.fillStyle = "rgba(204,228,238,.55)"; context.font = "9px monospace"; context.fillText("CONCEPTUAL DEPENDENCIES · NOT ROUTES", 18, height - 18);
+      context.fillStyle = "rgba(204,228,238,.55)"; context.font = "9px monospace"; context.fillText("CONCEPTUAL FUNCTIONS · NOT OPERATIONS OR ROUTES", 18, height - 18);
       frame = (frame + .65) % 1000;
       if (!reduceMotion) animation = window.requestAnimationFrame(draw);
     };
@@ -190,17 +249,17 @@ export default function ResponseTheatre() {
         <div className="theatre-controls">
           <fieldset><legend>Incident class</legend>{scenarios.map((item) => <button type="button" key={item.id} aria-pressed={incidentId === item.id} onClick={() => { setIncidentId(item.id); setPhase(0); setPlaying(false); }}><i style={{ background: item.color }} /><span>{item.label}<small>{item.short}</small></span></button>)}</fieldset>
           <fieldset><legend>Illustrative affected region</legend><div className="region-grid">{regions.map((item) => <button type="button" key={item.id} aria-pressed={regionId === item.id} onClick={() => setRegionId(item.id)}>{item.label}</button>)}</div></fieldset>
-          <div className="view-controls"><label>Map pitch <input aria-label="Map pitch" type="range" min="0" max="42" value={pitch} onChange={(event) => setPitch(Number(event.target.value))} /></label><label>Signal layers <input aria-label="Signal layers" type="range" min="1" max="4" value={intensity} onChange={(event) => setIntensity(Number(event.target.value))} /></label></div>
+          <div className="view-controls"><label>Explanatory detail <input aria-label="Explanatory detail" type="range" min="1" max="4" value={intensity} onChange={(event) => setIntensity(Number(event.target.value))} /></label><p><span>Visual grammar</span>{visualGrammar[incidentId]}</p></div>
         </div>
 
         <div className="theatre-stage">
-          <div className="theatre-viewport"><div className="theatre-plane" style={{ transform: `perspective(1100px) rotateX(${pitch}deg) scale(${1 - pitch * .0018})` }}><canvas ref={canvasRef} /></div><div className="theatre-hud"><span>PUBLIC MODEL</span><b>{String(phase + 1).padStart(2, "0")} / 05</b><small>{scenario.label} · {region.label}</small></div><div className={`signal-symbol signal-${incidentId}`} aria-hidden="true"><i /><i /><i /></div></div>
+          <div className="theatre-viewport"><div className="theatre-plane"><canvas ref={canvasRef} /></div><div className="theatre-hud"><span>PUBLIC MODEL</span><b>{String(phase + 1).padStart(2, "0")} / 05</b><small>{scenario.label} · {region.label}</small></div><div className={`signal-symbol signal-${incidentId}`} aria-hidden="true"><i /><i /><i /></div></div>
           <div className="phase-timeline" role="group" aria-label="Response phase">{scenario.phases.map((item, index) => <button type="button" key={item.title} aria-pressed={phase === index} onClick={() => { setPhase(index); setPlaying(false); }}><span>{String(index + 1).padStart(2, "0")}</span><small>{item.title}</small></button>)}</div>
           <div className="theatre-readout" aria-live="polite"><div><span>Current public function</span><h3>{current.title}</h3><p>{current.action}</p></div><aside><span>Evidence boundary</span><p>{current.boundary}</p><div>{current.sources.map((source) => <a key={source} href={`#source-${source}`}>[{source}]</a>)}</div></aside></div>
           <button className="play-response" type="button" aria-pressed={playing} onClick={() => setPlaying((value) => !value)}>{playing ? "Pause sequence" : "Play the five-phase sequence"}<span aria-hidden="true">{playing ? "Ⅱ" : "▶"}</span></button>
         </div>
       </div>
-      <p className="theatre-disclaimer"><strong>Interpretation rule:</strong> pulses represent an incident category; dashed lines represent institutional dependencies. Neither is an attack vector, reinforcement route, target, probability or measured response time.</p>
+      <p className="theatre-disclaimer"><strong>Interpretation rule:</strong> rings, scans, packets and pattern links are distinct explanatory symbols for public institutional functions. None represents an attack vector, reinforcement route, target, probability or measured response time.</p>
     </section>
   );
 }

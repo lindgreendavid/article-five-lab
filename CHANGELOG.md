@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.1 — 2026-08-16
+
+- Replace the decorative map-pitch control with a flat, more readable map.
+- Separate the overlapping NAC and SHAPE labels with anchored callouts.
+- Give conventional, air/missile, cyber and hybrid scenarios distinct evidence-led animation grammars.
+- Rename signal density as explanatory detail and state what each visual grammar represents.
+
 ## 1.1.0 — 2026-08-16
 
 - Add an animated, pitch-adjustable response theatre for four incident classes and four illustrative regions.
